@@ -1,0 +1,77 @@
+// ================================================
+// GENAIR — buttons.scss
+// ================================================
+
+@use '../base/variables' as *;
+
+// ── BASE ──────────────────────────────────────────
+.btn-primary,
+.btn-whatsapp,
+.btn-outline,
+.btn-outline-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-sm;
+  padding: 12px 28px;
+  border-radius: $radius-sm;
+  font-family: $font;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  transition: background $transition, transform $transition, box-shadow $transition;
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+// ── PRIMARIO ──────────────────────────────────────
+.btn-primary {
+  background: $color-primary;
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(0, 102, 204, 0.25);
+
+  &:hover {
+    background: $color-primary-dark;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 102, 204, 0.35);
+  }
+}
+
+// ── WHATSAPP ──────────────────────────────────────
+.btn-whatsapp {
+  background: $color-whatsapp;
+  color: #fff;
+
+  &:hover {
+    background: $color-whatsapp-dark;
+    transform: translateY(-2px);
+  }
+}
+
+// ── OUTLINE (fondo claro) ─────────────────────────
+.btn-outline {
+  background: transparent;
+  color: $color-primary;
+  border: 1.5px solid $color-primary;
+
+  &:hover {
+    background: $color-primary;
+    color: #fff;
+  }
+}
+
+// ── OUTLINE (fondo oscuro) ────────────────────────
+.btn-outline-dark {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}

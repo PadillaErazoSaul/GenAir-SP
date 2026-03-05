@@ -1,0 +1,127 @@
+// ================================================
+// GENAIR — productos.scss
+// ================================================
+
+@use '../base/variables' as *;
+
+// ── GRID DE CATEGORÍAS ────────────────────────────
+.section-products {
+  padding-block: $space-xxl;
+  background: $color-bg;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-lg;
+  margin-bottom: $space-xl;
+}
+
+// ── TARJETA ───────────────────────────────────────
+.product-card {
+  display: block;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  background: $color-bg;
+  transition: box-shadow $transition, transform $transition;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-6px);
+
+    .product-card-overlay {
+      opacity: 1;
+    }
+
+    .product-card-img .img-placeholder {
+      border-color: $color-primary;
+    }
+  }
+}
+
+.product-card-img {
+  position: relative;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    display: block;
+    transition: transform $transition;
+  }
+
+  .img-placeholder {
+    aspect-ratio: 16 / 10;
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px dashed $color-border;
+    transition: border-color $transition;
+  }
+
+  .product-card:hover img {
+    transform: scale(1.04);
+  }
+}
+
+.product-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 102, 204, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity $transition;
+
+  span {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+}
+
+.product-card-body {
+  padding: 24px;
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: $color-text;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 0.88rem;
+    color: $color-text-muted;
+    line-height: 1.7;
+  }
+}
+
+// ── CTA INFERIOR ──────────────────────────────────
+.products-cta {
+  text-align: center;
+  padding: 48px 0 0;
+  border-top: 1px solid $color-border;
+
+  p {
+    font-size: 1rem;
+    color: $color-text-muted;
+    margin-bottom: $space-md;
+  }
+}
+
+// ── RESPONSIVE ────────────────────────────────────
+@media (max-width: $bp-lg) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: $bp-md) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,99 @@
+// ================================================
+// GENAIR — footer.scss
+// ================================================
+
+@use '../base/variables' as *;
+
+footer {
+  background: $color-footer-bg;
+  color: $color-footer-text;
+  padding-top: $space-xl;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: $space-xl;
+  padding-bottom: $space-xl;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+// ── MARCA ─────────────────────────────────────────
+.footer-brand {
+  .logo-gen { color: $color-accent; }
+  .logo-air { color: #fff; }
+
+  p {
+    margin-top: $space-md;
+    font-size: 0.88rem;
+    color: $color-footer-text;
+    line-height: 1.7;
+
+    strong { color: #fff; }
+  }
+}
+
+// ── COLUMNAS ──────────────────────────────────────
+footer h4 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: $space-md;
+}
+
+footer ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+footer li a,
+footer li p {
+  font-size: 0.88rem;
+  color: $color-footer-text;
+  transition: color $transition;
+}
+
+footer li a:hover {
+  color: #fff;
+}
+
+// ── FOOTER BOTTOM ─────────────────────────────────
+.footer-bottom {
+  padding-block: $space-md;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  span {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+// ── RESPONSIVE ────────────────────────────────────
+@media (max-width: $bp-lg) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: $space-lg;
+
+    .footer-brand {
+      grid-column: span 2;
+    }
+  }
+}
+
+@media (max-width: $bp-md) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+
+    .footer-brand {
+      grid-column: span 1;
+    }
+  }
+}

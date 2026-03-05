@@ -1,0 +1,123 @@
+// ================================================
+// GENAIR — soporte-tecnico.scss
+// ================================================
+
+@use '../base/variables' as *;
+
+// ── GRID DE SOPORTE ───────────────────────────────
+.section-support {
+  padding-block: $space-xxl;
+  background: $color-bg;
+}
+
+.support-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-lg;
+}
+
+// ── TARJETA ───────────────────────────────────────
+.support-card {
+  display: block;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: box-shadow $transition, transform $transition;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-4px);
+
+    .support-card-overlay {
+      opacity: 1;
+    }
+
+    .support-card-body {
+      background: $color-primary;
+
+      h3, p { color: #fff; }
+    }
+  }
+}
+
+.support-card-img {
+  position: relative;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .img-placeholder {
+    aspect-ratio: 16 / 9;
+    border-radius: 0;
+    border: none;
+    background: $color-bg-soft;
+  }
+
+  .support-card:hover img {
+    transform: scale(1.04);
+  }
+}
+
+.support-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 102, 204, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity $transition;
+
+  span {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+}
+
+.support-card-body {
+  padding: 20px 24px;
+  background: $color-bg;
+  border: 1px solid $color-border;
+  border-top: none;
+  transition: background $transition;
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: $color-text;
+    line-height: 1.3;
+    transition: color $transition;
+  }
+}
+
+.support-card-subtitle {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: $color-text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+  transition: color $transition;
+}
+
+// ── RESPONSIVE ────────────────────────────────────
+@media (max-width: $bp-lg) {
+  .support-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: $bp-md) {
+  .support-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,190 @@
+// ================================================
+// GENAIR — slider.scss
+// Hero slider del index
+// ================================================
+
+@use '../base/variables' as *;
+
+#hero-slider {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - #{$topbar-h} - #{$header-h});
+  min-height: 480px;
+  overflow: hidden;
+}
+
+#slider-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+// ── SLIDE ─────────────────────────────────────────
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  pointer-events: none;
+
+  &.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.slide-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: $color-bg-soft; // fallback sin imagen
+}
+
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(10, 15, 30, 0.72) 0%,
+    rgba(10, 15, 30, 0.35) 60%,
+    rgba(10, 15, 30, 0.10) 100%
+  );
+}
+
+// ── CONTENIDO ─────────────────────────────────────
+.slide-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: $space-xl;
+  max-width: 640px;
+}
+
+.slide-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $color-accent;
+  border-left: 3px solid $color-accent;
+  padding-left: 10px;
+  margin-bottom: $space-md;
+}
+
+.slide-content h1 {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: $space-md;
+  animation: slideUp 0.6s ease both;
+}
+
+.slide-content p {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 480px;
+  margin-bottom: $space-lg;
+  animation: slideUp 0.6s 0.1s ease both;
+}
+
+.slide-ctas {
+  display: flex;
+  gap: $space-md;
+  flex-wrap: wrap;
+  animation: slideUp 0.6s 0.2s ease both;
+}
+
+// ── FLECHAS ───────────────────────────────────────
+#slider-prev,
+#slider-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background $transition, transform $transition;
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  &:hover {
+    background: $color-primary;
+    transform: translateY(-50%) scale(1.05);
+  }
+}
+
+#slider-prev { left: $space-lg; }
+#slider-next { right: $space-lg; }
+
+// ── PUNTOS ────────────────────────────────────────
+#slider-dots {
+  position: absolute;
+  bottom: $space-lg;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: $space-sm;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transition: background $transition, transform $transition;
+
+  &.active {
+    background: #fff;
+    transform: scale(1.25);
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.75);
+  }
+}
+
+// ── ANIMACIÓN ─────────────────────────────────────
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ── RESPONSIVE ────────────────────────────────────
+@media (max-width: $bp-md) {
+  #slider-prev { left: $space-md; }
+  #slider-next { right: $space-md; }
+
+  #slider-prev,
+  #slider-next {
+    width: 40px;
+    height: 40px;
+  }
+
+  .slide-ctas {
+    flex-direction: column;
+  }
+}

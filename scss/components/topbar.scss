@@ -1,0 +1,83 @@
+// ================================================
+// GENAIR — topbar.scss
+// ================================================
+
+@use '../base/variables' as *;
+
+#topbar {
+  background: $color-topbar-bg;
+  color: $color-topbar-text;
+  height: $topbar-h;
+  font-size: 0.8rem;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+}
+
+.topbar-info {
+  display: flex;
+  align-items: center;
+  gap: $space-lg;
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  a {
+    color: $color-topbar-text;
+    transition: color $transition;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+.topbar-social {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    color: $color-topbar-text;
+    transition: background $transition, color $transition;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    &:hover {
+      background: $color-primary;
+      color: #fff;
+    }
+  }
+}
+
+// ── RESPONSIVE ────────────────────────────────────
+@media (max-width: $bp-md) {
+  .topbar-info {
+    span:not(:first-child) {
+      display: none;
+    }
+  }
+}

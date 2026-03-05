@@ -1,0 +1,143 @@
+// ================================================
+// GENAIR — nav.scss
+// ================================================
+
+@use '../base/variables' as *;
+
+#nav {
+  ul {
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $color-text-muted;
+    border-radius: $radius-sm;
+    transition: color $transition, background $transition;
+    white-space: nowrap;
+
+    &:hover,
+    &.active {
+      color: $color-primary;
+      background: $color-primary-light;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+      transition: transform $transition;
+    }
+  }
+}
+
+// ── DROPDOWN ──────────────────────────────────────
+// Control 100% desde JS — no hover CSS ddasd
+.has-dropdown {
+  position: relative;
+
+  // Flecha rota cuando está abierto
+  &.is-open > a svg {
+    transform: rotate(180deg);
+  }
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: $color-bg;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  box-shadow: $shadow-lg;
+  min-width: 220px;
+  padding: $space-sm;
+  z-index: 200;
+
+  // Reset del flex del ul padre
+  flex-direction: column !important;
+  gap: 0 !important;
+
+  li a {
+    display: block;
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: $color-text-muted;
+    border-radius: $radius-sm;
+
+    &:hover {
+      background: $color-primary-light;
+      color: $color-primary;
+    }
+  }
+}
+
+// Solo .is-open abre el dropdown — desktop y móvil
+.has-dropdown.is-open > .dropdown {
+  display: block;
+}
+
+// ── RESPONSIVE ────────────────────────────────────
+@media (max-width: $bp-md) {
+  #nav {
+    display: none;
+    position: fixed;
+    top: calc(#{$topbar-h} + #{$header-h});
+    left: 0;
+    right: 0;
+    background: $color-bg;
+    border-bottom: 1px solid $color-border;
+    box-shadow: $shadow-lg;
+    padding: $space-md;
+    z-index: 99;
+
+    &.is-open {
+      display: block;
+    }
+
+    ul {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    a {
+      padding: 14px $space-md;
+      border-bottom: 1px solid $color-border;
+      border-radius: 0;
+    }
+  }
+
+  // Dropdown estático en móvil
+  .dropdown {
+    position: static;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    padding-left: $space-lg;
+    background: $color-bg-soft;
+    min-width: unset;
+
+    li a {
+      border-bottom: 1px solid $color-border;
+      border-radius: 0;
+    }
+  }
+
+  // En móvil solo abre con click (is-open), no con hover
+  .has-dropdown:hover > .dropdown {
+    display: none;
+  }
+
+  .has-dropdown.is-open > .dropdown {
+    display: block;
+  }
+}

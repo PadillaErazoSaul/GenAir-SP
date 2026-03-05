@@ -1,0 +1,28 @@
+// ================================================
+// GENAIR — main.scss
+// Solo imports. Aquí no se escribe ninguna línea de código.
+// Compilar hacia: styles/style.css
+// ================================================
+
+
+// ── BASE ──────────────────────────────────────────
+@use './base/variables';
+@use './base/reset';
+
+// ── COMPONENTS ────────────────────────────────────
+@use './components/buttons';
+@use './components/topbar';
+@use './components/header';
+@use './components/nav';
+@use './components/whatsapp';
+
+// ── LAYOUT ────────────────────────────────────────
+@use './layout/slider';
+@use './layout/footer';
+
+// ── PAGES ─────────────────────────────────────────
+@use './pages/nosotros';
+@use './pages/productos';
+@use './pages/servicio-tecnico';
+@use './pages/soporte-tecnico';
+@use "./pages/contacto.scss"

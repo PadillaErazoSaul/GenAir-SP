@@ -1,0 +1,160 @@
+// ================================================
+// GENAIR — servicio-tecnico.scss
+// ================================================
+
+@use '../base/variables' as *;
+
+// ── INTRO ─────────────────────────────────────────
+.section-intro {
+  padding-block: $space-xxl;
+  background: $color-bg;
+
+  .intro-text {
+    max-width: 720px;
+
+    h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: $color-text;
+    }
+
+    p {
+      color: $color-text-muted;
+      margin-bottom: $space-md;
+      line-height: 1.75;
+    }
+  }
+}
+
+// ── GRID DE SERVICIOS ─────────────────────────────
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-lg;
+  padding-block: $space-xxl;
+}
+
+// ── TARJETA DE SERVICIO ───────────────────────────
+.service-card {
+  background: $color-bg;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  transition: box-shadow $transition, transform $transition;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-4px);
+
+    .service-card-overlay {
+      opacity: 1;
+    }
+  }
+}
+
+.service-card-img {
+  position: relative;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+
+  .img-placeholder {
+    aspect-ratio: 16 / 9;
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px dashed $color-border;
+  }
+}
+
+.service-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 102, 204, 0.5);
+  opacity: 0;
+  transition: opacity $transition;
+}
+
+.service-card-body {
+  padding: 28px;
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: $color-text;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  p {
+    font-size: 0.88rem;
+    color: $color-text-muted;
+    line-height: 1.7;
+    margin-bottom: $space-lg;
+  }
+}
+
+.service-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: $radius-md;
+  background: $color-primary-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-primary;
+  margin-bottom: $space-md;
+
+  svg { width: 22px; height: 22px; }
+}
+
+// ── CTA FINAL ─────────────────────────────────────
+.section-cta {
+  padding-block: $space-xxl;
+  background: $color-primary;
+  text-align: center;
+
+  h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: $space-md;
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: $space-lg;
+    font-size: 1rem;
+  }
+}
+
+.cta-btns {
+  display: flex;
+  gap: $space-md;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+// ── RESPONSIVE ────────────────────────────────────
+@media (max-width: $bp-lg) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: $bp-md) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-btns {
+    flex-direction: column;
+    align-items: center;
+  }
+}

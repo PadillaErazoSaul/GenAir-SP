@@ -1,0 +1,190 @@
+// ================================================
+// GENAIR — contacto.scss
+// ================================================
+
+@use '../base/variables' as *;
+
+// ── BLOQUE PRINCIPAL ──────────────────────────────
+.section-contact {
+  padding-block: $space-xxl;
+  background: $color-bg;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 72px;
+  align-items: start;
+}
+
+// ── COLUMNA INFO ──────────────────────────────────
+.contact-info {
+  h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: $color-text;
+    margin-bottom: 20px;
+  }
+
+  > p {
+    color: $color-text-muted;
+    line-height: 1.75;
+    margin-bottom: $space-xl;
+  }
+}
+
+.contact-data {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-md;
+  }
+}
+
+.contact-data-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: $radius-md;
+  background: $color-primary-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-primary;
+
+  svg { width: 20px; height: 20px; }
+}
+
+.contact-data li > div {
+  span {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $color-text-light;
+    margin-bottom: 4px;
+  }
+
+  a, p {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: $color-text;
+    transition: color $transition;
+  }
+
+  a:hover {
+    color: $color-primary;
+  }
+}
+
+// ── COLUMNA FORMULARIO ────────────────────────────
+.contact-form-wrap {
+  background: $color-bg-soft;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: 48px 40px;
+
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: $color-text;
+    margin-bottom: $space-lg;
+  }
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-md;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: $color-text;
+
+    span {
+      color: $color-primary;
+    }
+  }
+
+  input,
+  textarea {
+    font-family: $font;
+    font-size: 0.9rem;
+    color: $color-text;
+    background: $color-bg;
+    border: 1.5px solid $color-border;
+    border-radius: $radius-sm;
+    padding: 12px 14px;
+    transition: border-color $transition, box-shadow $transition;
+    outline: none;
+    resize: vertical;
+
+    &::placeholder {
+      color: $color-text-light;
+    }
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.12);
+    }
+  }
+}
+
+// ── MAPA ──────────────────────────────────────────
+.section-map {
+  padding-block: $space-xxl;
+  background: $color-bg-soft;
+
+  .section-header {
+    margin-bottom: $space-xl;
+  }
+}
+
+.map-wrap {
+  border-radius: $radius-lg;
+  overflow: hidden;
+  border: 1px solid $color-border;
+  box-shadow: $shadow-sm;
+
+  iframe {
+    display: block;
+    width: 100%;
+  }
+}
+
+// ── RESPONSIVE ────────────────────────────────────
+@media (max-width: $bp-lg) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: $space-xl;
+  }
+}
+
+@media (max-width: $bp-md) {
+  .contact-form-wrap {
+    padding: $space-lg $space-md;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
