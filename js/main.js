@@ -86,14 +86,21 @@
 
 
   /* ════════════════════════════════════════════════
-     3. DROPDOWN — control 100% desde JS
-     Desktop y móvil: click toggle .is-open
-     Se cierra al hacer click fuera o en un link
+     3. DROPDOWN — CSS maneja hover en desktop
+     JS maneja toggle en móvil y cierre desde fuera
   ════════════════════════════════════════════════ */
   const dropdowns = Array.from(document.querySelectorAll('.has-dropdown'));
 
   function closeAllDropdowns() {
-    dropdowns.forEach(function (d) { d.classList.remove('is-open'); });
+    dropdowns.forEach(function (d) {
+      d.classList.remove('is-open');
+      const toggle = d.querySelector('.dropdown-toggle');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  function isMobile() {
+    return window.innerWidth <= 768;
   }
 
   dropdowns.forEach(function (item) {
@@ -101,46 +108,35 @@
     if (!toggle) return;
 
     toggle.addEventListener('click', function (e) {
-      e.preventDefault();
-      const isOpen = item.classList.contains('is-open');
-      closeAllDropdowns();
-      if (!isOpen) item.classList.add('is-open');
+      if (isMobile()) {
+        e.preventDefault();
+        const isOpen = item.classList.contains('is-open');
+        closeAllDropdowns();
+        if (!isOpen) {
+          item.classList.add('is-open');
+          toggle.setAttribute('aria-expanded', 'true');
+        }
+      }
     });
 
-    // Cerrar al hacer click en un link del dropdown
     item.querySelectorAll('.dropdown a').forEach(function (link) {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        const href = link.getAttribute('href');
-
+      link.addEventListener('click', function () {
         closeAllDropdowns();
-
-        if (window.innerWidth <= 768 && nav && hamburger) {
-          nav.classList.remove('is-open');
-          hamburger.classList.remove('is-open');
-          hamburger.setAttribute('aria-expanded', 'false');
-          document.body.style.overflow = '';
-        }
-
-        // Pequeño delay para que el DOM procese el cierre antes de navegar
-        setTimeout(function () {
-          window.location.href = href;
-        }, 80);
       });
     });
   });
 
-  // Cerrar dropdown al hacer click fuera
   document.addEventListener('click', function (e) {
     const clickedInsideDropdown = e.target.closest('.has-dropdown');
-    if (!clickedInsideDropdown) {
-      closeAllDropdowns();
-    }
+    if (!clickedInsideDropdown) closeAllDropdowns();
   });
 
-  // Cerrar dropdown con tecla Escape
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeAllDropdowns();
+  });
+
+  window.addEventListener('resize', function () {
+    if (!isMobile()) closeAllDropdowns();
   });
 
 
@@ -264,7 +260,7 @@
   ════════════════════════════════════════════════ */
   const staggerGrids = document.querySelectorAll(
     '.values-grid, .why-grid, .products-grid, ' +
-    '.services-grid, .support-grid, .mv-grid'
+    '.services-grid, .support-grid, .mv-grid, .products-detail-grid'
   );
 
   staggerGrids.forEach(function (grid) {
@@ -355,4 +351,66 @@
   });
 
 
+})();
+
+/* ════════════════════════════════════════════════
+   9. CARRUSEL PRODUCTOS HOME — flechas + dots
+════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  var hpcTrack   = document.getElementById('hpc-track');
+  var hpcDotsCon = document.getElementById('hpc-dots');
+  var hpcPrev    = document.querySelector('.hpc-prev');
+  var hpcNext    = document.querySelector('.hpc-next');
+
+  if (!hpcTrack) return;
+
+  var hpcCards    = Array.from(hpcTrack.querySelectorAll('.hpc-card'));
+  var hpcDotsBtns = hpcDotsCon ? Array.from(hpcDotsCon.querySelectorAll('.hpc-dot')) : [];
+  var hpcCurrent  = 0;
+
+  function hpcVisibleCount() {
+    var w = window.innerWidth;
+    if (w <= 480)  return 1;
+    if (w <= 768)  return 2;
+    if (w <= 1024) return 3;
+    return 4;
+  }
+
+  function hpcCardWidth() {
+    if (!hpcCards[0]) return 0;
+    var style = getComputedStyle(hpcTrack);
+    var gap   = parseFloat(style.gap) || 20;
+    return hpcCards[0].offsetWidth + gap;
+  }
+
+  function hpcGoTo(index) {
+    var max = hpcCards.length - hpcVisibleCount();
+    hpcCurrent = Math.max(0, Math.min(index, max));
+    hpcTrack.style.transform = 'translateX(-' + (hpcCurrent * hpcCardWidth()) + 'px)';
+    hpcDotsBtns.forEach(function (d, i) {
+      d.classList.toggle('active', i === hpcCurrent);
+    });
+  }
+
+  if (hpcPrev) hpcPrev.addEventListener('click', function () { hpcGoTo(hpcCurrent - 1); });
+  if (hpcNext) hpcNext.addEventListener('click', function () { hpcGoTo(hpcCurrent + 1); });
+
+  hpcDotsBtns.forEach(function (dot) {
+    dot.addEventListener('click', function () {
+      hpcGoTo(parseInt(dot.getAttribute('data-idx'), 10));
+    });
+  });
+
+  var hpcTouchX = 0;
+  hpcTrack.addEventListener('touchstart', function (e) {
+    hpcTouchX = e.changedTouches[0].clientX;
+  }, { passive: true });
+  hpcTrack.addEventListener('touchend', function (e) {
+    var diff = hpcTouchX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) diff > 0 ? hpcGoTo(hpcCurrent + 1) : hpcGoTo(hpcCurrent - 1);
+  }, { passive: true });
+
+  window.addEventListener('resize', function () { hpcGoTo(0); });
 })();

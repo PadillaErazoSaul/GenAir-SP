@@ -30,8 +30,8 @@
   }
 
   svg {
-    width: 14px;
-    height: 14px;
+    width: 14px !important;
+    height: 14px !important;
     flex-shrink: 0;
   }
 
@@ -62,8 +62,8 @@
     transition: background $transition, color $transition;
 
     svg {
-      width: 14px;
-      height: 14px;
+      width: 14px !important;
+      height: 14px !important;
     }
 
     &:hover {

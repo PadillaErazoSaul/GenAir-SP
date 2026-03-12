@@ -1,0 +1,447 @@
+// ================================================
+// GENAIR — home.scss
+// Secciones exclusivas del index.html
+// ================================================
+
+@use '../base/variables' as *;
+
+// ══════════════════════════════════════════════════
+// SECCIÓN INTRO — texto + collage de imágenes
+// ══════════════════════════════════════════════════
+
+.home-intro {
+  padding: $space-xl 0;
+  background: $color-bg;
+}
+
+.home-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-xl;
+  align-items: center;
+
+  @media (max-width: $bp-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.home-intro-text {
+  h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: $color-text;
+    line-height: 1.25;
+    margin: 12px 0 20px;
+
+    span {
+      color: $color-primary;
+    }
+
+    @media (max-width: $bp-sm) {
+      font-size: 1.5rem;
+    }
+  }
+
+  p {
+    color: $color-text-muted;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+}
+
+.home-intro-btns {
+  display: flex;
+  gap: $space-sm;
+  flex-wrap: wrap;
+  margin-top: $space-md;
+}
+
+.home-intro-collage {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.collage-main {
+  .img-placeholder {
+    height: 260px;
+    border-radius: $radius-md;
+  }
+}
+
+.collage-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+
+  .img-placeholder {
+    height: 110px;
+    border-radius: $radius-sm;
+  }
+}
+
+// ══════════════════════════════════════════════════
+// CARRUSEL DE PRODUCTOS — flechas laterales
+// ══════════════════════════════════════════════════
+
+.home-products {
+  padding: $space-xl 0 $space-md;
+  background: $color-bg-soft;
+}
+
+.home-products-carousel-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: $space-lg;
+}
+
+.hpc-track-outer {
+  flex: 1;
+  overflow: hidden;
+  padding: $space-sm 0 $space-md;
+}
+
+.hpc-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.4s ease;
+  padding: 0 $space-md;
+}
+
+.hpc-card {
+  flex: 0 0 calc(25% - 15px);
+  background: $color-bg;
+  border-radius: $radius-md;
+  border: 1px solid $color-border;
+  overflow: hidden;
+  text-decoration: none;
+  color: $color-text;
+  transition: box-shadow $transition, transform $transition;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-4px);
+  }
+
+  @media (max-width: 1024px) {
+    flex: 0 0 calc(33.33% - 14px);
+  }
+
+  @media (max-width: $bp-md) {
+    flex: 0 0 calc(50% - 10px);
+  }
+
+  @media (max-width: $bp-sm) {
+    flex: 0 0 calc(80% - 10px);
+  }
+}
+
+.hpc-card-img {
+  .img-placeholder {
+    height: 180px;
+    border-radius: 0;
+  }
+}
+
+.hpc-card-body {
+  padding: $space-md;
+
+  h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: $color-text;
+    margin-bottom: 4px;
+  }
+}
+
+.hpc-sub {
+  font-size: 0.78rem;
+  color: $color-text-muted;
+}
+
+// Flechas del carrusel
+.hpc-prev,
+.hpc-next {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background: $color-bg;
+  border: 1px solid $color-border;
+  border-radius: $radius-full;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background $transition, box-shadow $transition;
+  margin: 0 $space-sm;
+  z-index: 2;
+
+  svg {
+    stroke: $color-text-muted;
+    transition: stroke $transition;
+  }
+
+  &:hover {
+    background: $color-primary;
+    border-color: $color-primary;
+    box-shadow: $shadow-md;
+
+    svg {
+      stroke: white;
+    }
+  }
+
+  @media (max-width: $bp-sm) {
+    width: 36px;
+    height: 36px;
+    margin: 0 4px;
+  }
+}
+
+// Dots del carrusel
+.hpc-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: $space-md;
+  padding-bottom: $space-sm;
+}
+
+.hpc-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: $radius-full;
+  background: $color-border;
+  border: none;
+  cursor: pointer;
+  transition: background $transition, width $transition;
+  padding: 0;
+
+  &.active {
+    background: $color-primary;
+    width: 24px;
+  }
+}
+
+// ══════════════════════════════════════════════════
+// SECTORES ESPECIALIZADOS
+// ══════════════════════════════════════════════════
+
+.home-sectores {
+  padding: $space-xl 0;
+  background: $color-bg;
+}
+
+.sectores-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-xl;
+  align-items: start;
+  margin-top: $space-lg;
+
+  @media (max-width: $bp-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sectores-img {
+  .img-placeholder {
+    height: 380px;
+    border-radius: $radius-md;
+
+    @media (max-width: $bp-md) {
+      height: 240px;
+    }
+  }
+}
+
+.sectores-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-md;
+}
+
+.sector-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  span {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: $color-text;
+    line-height: 1.3;
+  }
+
+  &--wide {
+    grid-column: 1 / -1;
+  }
+}
+
+.sector-icon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background $transition, border-color $transition;
+
+  svg {
+    stroke: $color-text-muted;
+    transition: stroke $transition;
+  }
+
+  .sector-item:hover & {
+    background: $color-primary-light;
+    border-color: $color-primary;
+
+    svg {
+      stroke: $color-primary;
+    }
+  }
+}
+
+// ══════════════════════════════════════════════════
+// SERVICIOS — 3 cards
+// ══════════════════════════════════════════════════
+
+.home-servicios {
+  padding: $space-xl 0;
+  background: $color-bg-soft;
+}
+
+.servicios-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-lg;
+  margin-top: $space-lg;
+
+  @media (max-width: $bp-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.servicio-card {
+  background: $color-bg;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $space-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  transition: box-shadow $transition, transform $transition;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-4px);
+  }
+
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: $color-text;
+    margin: 0;
+  }
+
+  p {
+    font-size: 0.875rem;
+    color: $color-text-muted;
+    line-height: 1.6;
+    flex: 1;
+    margin: 0;
+  }
+
+  .btn-outline {
+    align-self: flex-start;
+    margin-top: $space-sm;
+  }
+}
+
+.servicio-icon {
+  width: 56px;
+  height: 56px;
+  background: $color-primary-light;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    stroke: $color-primary;
+  }
+}
+
+// ══════════════════════════════════════════════════
+// MARCAS — carrusel infinito CSS
+// ══════════════════════════════════════════════════
+
+.home-marcas {
+  padding: $space-xl 0;
+  background: $color-bg;
+}
+
+.marcas-track-outer {
+  overflow: hidden;
+  margin-top: $space-lg;
+  padding: $space-sm 0;
+
+  // Máscara fade en los bordes
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+}
+
+.marcas-track {
+  display: flex;
+  gap: 32px;
+  width: max-content;
+  animation: marcas-scroll 28s linear infinite;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marcas-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marca-item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.marca-logo-placeholder {
+  height: 56px;
+  min-width: 120px;
+  padding: 0 $space-md;
+  background: $color-bg-soft;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: $color-text-muted;
+  letter-spacing: 0.05em;
+  transition: background $transition, border-color $transition, color $transition;
+
+  &:hover {
+    background: $color-primary-light;
+    border-color: $color-primary;
+    color: $color-primary;
+  }
+}

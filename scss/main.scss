@@ -19,10 +19,12 @@
 // ── LAYOUT ────────────────────────────────────────
 @use './layout/slider';
 @use './layout/footer';
+@use "./layout/pages.scss";
 
 // ── PAGES ─────────────────────────────────────────
 @use './pages/nosotros';
 @use './pages/productos';
 @use './pages/servicio-tecnico';
 @use './pages/soporte-tecnico';
-@use "./pages/contacto.scss"
+@use "./pages/contacto.scss";
+@use "./pages/home.scss";

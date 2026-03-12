@@ -5,7 +5,7 @@
 @use '../base/variables' as *;
 
 #nav {
-  ul {
+  > ul {
     display: flex;
     align-items: center;
     gap: $space-xs;
@@ -38,20 +38,17 @@
 }
 
 // ── DROPDOWN ──────────────────────────────────────
-// Control 100% desde JS — no hover CSS ddasd
 .has-dropdown {
   position: relative;
-
-  // Flecha rota cuando está abierto
-  &.is-open > a svg {
-    transform: rotate(180deg);
-  }
 }
 
 .dropdown {
-  display: none;
+  // Oculto con visibility para que transition-delay funcione
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 4px); // reducido de 8px a 4px — menos gap
   left: 0;
   background: $color-bg;
   border: 1px solid $color-border;
@@ -60,10 +57,24 @@
   min-width: 220px;
   padding: $space-sm;
   z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 
-  // Reset del flex del ul padre
-  flex-direction: column !important;
-  gap: 0 !important;
+  // Pseudo-elemento que tapa el gap entre botón y dropdown
+  &::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 0;
+    right: 0;
+    height: 12px;
+  }
+
+  // Transición de cierre — 0.45s delay antes de ocultarse
+  transition:
+    opacity 0.15s ease,
+    visibility 0s linear 0.45s;
 
   li a {
     display: block;
@@ -80,12 +91,28 @@
   }
 }
 
-// Solo .is-open abre el dropdown — desktop y móvil
-.has-dropdown.is-open > .dropdown {
-  display: block;
+// ── DESKTOP ───────────────────────────────────────
+@media (min-width: $bp-md) {
+  .has-dropdown {
+    &:hover > a svg,
+    &.is-open > a svg {
+      transform: rotate(180deg);
+    }
+
+    // Al abrir — sin delay, aparece inmediato
+    &:hover > .dropdown,
+    &.is-open > .dropdown {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+      transition:
+        opacity 0.15s ease,
+        visibility 0s linear 0s; // delay 0 al abrir
+    }
+  }
 }
 
-// ── RESPONSIVE ────────────────────────────────────
+// ── MÓVIL ─────────────────────────────────────────
 @media (max-width: $bp-md) {
   #nav {
     display: none;
@@ -103,7 +130,7 @@
       display: block;
     }
 
-    ul {
+    > ul {
       flex-direction: column;
       align-items: stretch;
       gap: 0;
@@ -116,8 +143,12 @@
     }
   }
 
-  // Dropdown estático en móvil
+  // En móvil el dropdown vuelve a display none/block simple
   .dropdown {
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: none;
+    display: none;
     position: static;
     box-shadow: none;
     border: none;
@@ -125,6 +156,7 @@
     padding-left: $space-lg;
     background: $color-bg-soft;
     min-width: unset;
+    transition: none !important;
 
     li a {
       border-bottom: 1px solid $color-border;
@@ -132,12 +164,8 @@
     }
   }
 
-  // En móvil solo abre con click (is-open), no con hover
-  .has-dropdown:hover > .dropdown {
-    display: none;
-  }
-
   .has-dropdown.is-open > .dropdown {
-    display: block;
+    display: flex;
+    pointer-events: auto;
   }
 }

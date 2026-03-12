@@ -32,6 +32,12 @@ img {
   display: block;
 }
 
+// SVG solo bloque cuando es imagen standalone, no ícono inline
+svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 a {
   color: inherit;
   text-decoration: none;

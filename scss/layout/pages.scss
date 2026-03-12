@@ -1,0 +1,396 @@
+// ================================================
+// GENAIR — pages.scss
+// Estilos compartidos por TODAS las páginas internas
+// page-hero, breadcrumb, section-split, section-header,
+// section-products-detail, section-cta-product, etc.
+// ================================================
+
+@use '../base/variables' as *;
+
+// ── PAGE HERO ─────────────────────────────────────
+// Hero de cabecera en cada página interna
+
+.page-hero {
+  position: relative;
+  height: 320px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+
+  @media (max-width: $bp-md) {
+    height: 220px;
+  }
+}
+
+.page-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.05);
+  transition: transform 6s ease;
+}
+
+.page-hero:hover .page-hero-bg {
+  transform: scale(1);
+}
+
+.page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 20, 40, 0.75) 0%,
+    rgba(10, 20, 40, 0.35) 60%,
+    transparent 100%
+  );
+}
+
+.page-hero-content {
+  position: relative;
+  z-index: 2;
+  padding-bottom: $space-xl;
+  color: white;
+
+  .page-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 4px 12px;
+    border-radius: $radius-full;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 8px;
+
+    span {
+      color: #7ec8ff;
+    }
+
+    @media (max-width: $bp-md) {
+      font-size: 1.5rem;
+    }
+  }
+
+  p {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.8);
+    max-width: 520px;
+
+    @media (max-width: $bp-md) {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+// ── BREADCRUMB ────────────────────────────────────
+
+.breadcrumb {
+  background: $color-bg-soft;
+  border-bottom: 1px solid $color-border;
+  padding: 12px 0;
+
+  .container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  a {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: $color-text-muted;
+    transition: color $transition;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  .separator {
+    font-size: 0.82rem;
+    color: $color-text-light;
+  }
+
+  .current {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: $color-primary;
+  }
+}
+
+// ── SECTION TAG ───────────────────────────────────
+// Etiqueta azul pequeña encima de títulos
+
+.section-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $color-primary;
+  background: $color-primary-light;
+  padding: 4px 12px;
+  border-radius: $radius-full;
+  margin-bottom: 10px;
+}
+
+// ── SECTION HEADER ────────────────────────────────
+// Cabecera centrada de sección con tag + h2 + p
+
+.section-header {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto $space-lg;
+
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: $color-text;
+    margin-bottom: 12px;
+    line-height: 1.2;
+
+    span {
+      color: $color-primary;
+    }
+
+    @media (max-width: $bp-sm) {
+      font-size: 1.4rem;
+    }
+  }
+
+  p {
+    font-size: 0.925rem;
+    color: $color-text-muted;
+    line-height: 1.7;
+    margin: 0;
+  }
+}
+
+// ── PAGE TAG (hero sin fondo) ─────────────────────
+
+.page-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $color-primary;
+  background: $color-primary-light;
+  padding: 4px 12px;
+  border-radius: $radius-full;
+  margin-bottom: 10px;
+}
+
+// ── SECTION SPLIT ─────────────────────────────────
+// Layout imagen | texto usado en intros de páginas
+
+.section-split {
+  padding: $space-xl 0;
+  background: $color-bg;
+}
+
+.split-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-xl;
+  align-items: center;
+
+  @media (max-width: $bp-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.split-img {
+  .img-placeholder {
+    height: 360px;
+    border-radius: $radius-md;
+
+    @media (max-width: $bp-md) {
+      height: 220px;
+    }
+  }
+}
+
+.split-text {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: $color-text;
+    line-height: 1.2;
+    margin-bottom: 4px;
+
+    @media (max-width: $bp-sm) {
+      font-size: 1.4rem;
+    }
+  }
+
+  p {
+    color: $color-text-muted;
+    line-height: 1.7;
+    font-size: 0.925rem;
+  }
+
+  .btn-primary {
+    align-self: flex-start;
+    margin-top: $space-sm;
+  }
+}
+
+// ── SECTION PRODUCTS DETAIL ───────────────────────
+// Grid de productos en páginas de sub-categoría
+
+.section-products-detail {
+  padding: $space-xl 0;
+  background: $color-bg-soft;
+}
+
+.products-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: $space-lg;
+
+  @media (max-width: $bp-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: $bp-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Tarjeta de producto individual
+.product-item {
+  background: $color-bg;
+  border-radius: $radius-md;
+  overflow: hidden;
+  border: none;
+  transition: box-shadow $transition, transform $transition;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-5px);
+  }
+}
+
+.product-item-img {
+  .img-placeholder {
+    height: 160px !important;
+    aspect-ratio: unset !important;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid $color-border;
+  }
+}
+
+.product-item-body {
+  padding: $space-md;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-sm;
+
+  h3 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: $color-text;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .btn-outline {
+    font-size: 0.78rem;
+    padding: 6px 20px;
+    border-radius: $radius-full;
+    margin-top: 4px;
+  }
+}
+
+// CTA debajo del grid de productos
+.products-cta {
+  margin-top: $space-xl;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-sm;
+
+  p {
+    font-size: 0.95rem;
+    color: $color-text-muted;
+    font-weight: 600;
+  }
+}
+
+// ── SECTION CTA PRODUCT ───────────────────────────
+// CTA final en páginas de producto — fondo gradiente azul suave
+
+.section-cta-product {
+  padding: $space-xl 0;
+  background: linear-gradient(135deg, #e8f0fb 0%, #ddeeff 100%);
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-lg;
+
+    @media (max-width: $bp-md) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+}
+
+.cta-product-text {
+  flex: 1;
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: $color-text;
+    margin-bottom: 10px;
+    line-height: 1.2;
+
+    @media (max-width: $bp-sm) {
+      font-size: 1.2rem;
+    }
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: $color-text-muted;
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0;
+  }
+}
+
+.cta-product-btns {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  flex-shrink: 0;
+
+  @media (max-width: $bp-md) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
