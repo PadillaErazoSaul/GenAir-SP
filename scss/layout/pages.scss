@@ -1,24 +1,22 @@
-// ================================================
+// ====
 // GENAIR — pages.scss
 // Estilos compartidos por TODAS las páginas internas
 // page-hero, breadcrumb, section-split, section-header,
 // section-products-detail, section-cta-product, etc.
-// ================================================
+// ====
 
 @use '../base/variables' as *;
 
-// ── PAGE HERO ─────────────────────────────────────
-// Hero de cabecera en cada página interna
-
+// ── PAGE HERO ────
 .page-hero {
   position: relative;
   height: 320px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   overflow: hidden;
 
   @media (max-width: $bp-md) {
-    height: 220px;
+    height: 260px;
   }
 }
 
@@ -27,6 +25,7 @@
   inset: 0;
   background-size: cover;
   background-position: center;
+  background-color: $color-bg-soft;
   transform: scale(1.05);
   transition: transform 6s ease;
 }
@@ -39,10 +38,10 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    to top,
-    rgba(10, 20, 40, 0.75) 0%,
-    rgba(10, 20, 40, 0.35) 60%,
-    transparent 100%
+    to right,
+    rgba(10, 15, 30, 0.80) 0%,
+    rgba(10, 15, 30, 0.45) 60%,
+    rgba(10, 15, 30, 0.15) 100%
   );
 }
 
@@ -58,22 +57,23 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.75);
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 4px 12px;
     border-radius: $radius-full;
     margin-bottom: 10px;
   }
 
   h1 {
-    font-size: 2.2rem;
+    font-size: clamp(2rem, 5vw, 3.2rem);
     font-weight: 800;
-    line-height: 1.15;
-    margin-bottom: 8px;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 12px;
 
     span {
-      color: #7ec8ff;
+      color: $color-accent;
     }
 
     @media (max-width: $bp-md) {
@@ -83,8 +83,8 @@
 
   p {
     font-size: 1rem;
-    color: rgba(255,255,255,0.8);
-    max-width: 520px;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 480px;
 
     @media (max-width: $bp-md) {
       font-size: 0.875rem;
@@ -92,47 +92,8 @@
   }
 }
 
-// ── BREADCRUMB ────────────────────────────────────
-
-.breadcrumb {
-  background: $color-bg-soft;
-  border-bottom: 1px solid $color-border;
-  padding: 12px 0;
-
-  .container {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-
-  a {
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: $color-text-muted;
-    transition: color $transition;
-
-    &:hover {
-      color: $color-primary;
-    }
-  }
-
-  .separator {
-    font-size: 0.82rem;
-    color: $color-text-light;
-  }
-
-  .current {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: $color-primary;
-  }
-}
-
-// ── SECTION TAG ───────────────────────────────────
-// Etiqueta azul pequeña encima de títulos
-
-.section-tag {
+// ── PAGE TAG (fuera del hero) ────
+.page-tag {
   display: inline-block;
   font-size: 0.72rem;
   font-weight: 700;
@@ -145,16 +106,69 @@
   margin-bottom: 10px;
 }
 
-// ── SECTION HEADER ────────────────────────────────
-// Cabecera centrada de sección con tag + h2 + p
+// ── BREADCRUMB ────
+.breadcrumb {
+  background: $color-bg-soft;
+  border-bottom: 1px solid $color-border;
+  padding: 10px 0;
 
+  .container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  a {
+    color: $color-text-muted;
+    transition: color $transition;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  .separator {
+    color: $color-text-light;
+    font-size: 0.75rem;
+  }
+
+  .current {
+    color: $color-primary;
+    font-weight: 700;
+  }
+}
+
+// ── SECTION TAG ────
+.section-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $color-primary;
+  background: $color-primary-light;
+  padding: 4px 12px;
+  border-radius: $radius-full;
+  margin-bottom: 10px;
+
+  &--light {
+    color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+}
+
+// ── SECTION HEADER ────
 .section-header {
   text-align: center;
   max-width: 620px;
   margin: 0 auto $space-lg;
 
   h2 {
-    font-size: 1.75rem;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
     font-weight: 800;
     color: $color-text;
     margin-bottom: 12px;
@@ -177,24 +191,12 @@
   }
 }
 
-// ── PAGE TAG (hero sin fondo) ─────────────────────
-
-.page-tag {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: $color-primary;
-  background: $color-primary-light;
-  padding: 4px 12px;
-  border-radius: $radius-full;
-  margin-bottom: 10px;
+// ── SECTION ALT ────
+.section-alt {
+  background: $color-bg-soft;
 }
 
-// ── SECTION SPLIT ─────────────────────────────────
-// Layout imagen | texto usado en intros de páginas
-
+// ── SECTION SPLIT ────
 .section-split {
   padding: $space-xl 0;
   background: $color-bg;
@@ -203,15 +205,33 @@
 .split-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: $space-xl;
+  gap: 72px;
   align-items: center;
+
+  &--reverse {
+    .split-img  { order: 2; }
+    .split-text { order: 1; }
+  }
 
   @media (max-width: $bp-md) {
     grid-template-columns: 1fr;
+    gap: 40px;
+
+    &--reverse .split-img,
+    &--reverse .split-text {
+      order: unset;
+    }
   }
 }
 
 .split-img {
+  img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: $radius-lg;
+  }
+
   .img-placeholder {
     height: 360px;
     border-radius: $radius-md;
@@ -228,7 +248,7 @@
   gap: $space-sm;
 
   h2 {
-    font-size: 1.75rem;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
     font-weight: 800;
     color: $color-text;
     line-height: 1.2;
@@ -241,8 +261,14 @@
 
   p {
     color: $color-text-muted;
-    line-height: 1.7;
+    line-height: 1.75;
     font-size: 0.925rem;
+    margin-bottom: $space-md;
+
+    strong {
+      color: $color-primary;
+      font-weight: 700;
+    }
   }
 
   .btn-primary {
@@ -251,9 +277,7 @@
   }
 }
 
-// ── SECTION PRODUCTS DETAIL ───────────────────────
-// Grid de productos en páginas de sub-categoría
-
+// ── SECTION PRODUCTS DETAIL ────
 .section-products-detail {
   padding: $space-xl 0;
   background: $color-bg-soft;
@@ -279,12 +303,31 @@
   background: $color-bg;
   border-radius: $radius-md;
   overflow: hidden;
-  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition: box-shadow $transition, transform $transition;
 
   &:hover {
-    box-shadow: $shadow-lg;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     transform: translateY(-5px);
+  }
+
+  .img-placeholder {
+    width: 100%;
+    height: 160px !important;
+    min-height: unset !important;
+    aspect-ratio: unset !important;
+    border-radius: 0 !important;
+    border: none !important;
+    background: $color-bg-soft !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      font-size: 0.75rem;
+      color: $color-text-light;
+      font-weight: 600;
+    }
   }
 }
 
@@ -299,7 +342,7 @@
 }
 
 .product-item-body {
-  padding: $space-md;
+  padding: 12px 14px 16px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -311,39 +354,47 @@
     font-weight: 700;
     color: $color-text;
     line-height: 1.4;
-    margin: 0;
+    margin-bottom: 10px;
   }
 
   .btn-outline {
-    font-size: 0.78rem;
-    padding: 6px 20px;
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: $color-primary;
+    border: 1.5px solid $color-primary;
     border-radius: $radius-full;
-    margin-top: 4px;
+    padding: 5px 18px;
+    transition: all $transition;
+    text-decoration: none;
+
+    &:hover {
+      background: $color-primary;
+      color: #fff;
+    }
   }
 }
 
 // CTA debajo del grid de productos
 .products-cta {
-  margin-top: $space-xl;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: $space-sm;
+  padding: 48px 0 0;
+  border-top: 1px solid $color-border;
+  margin-top: $space-xl;
 
   p {
     font-size: 0.95rem;
     color: $color-text-muted;
     font-weight: 600;
+    margin-bottom: $space-md;
   }
 }
 
-// ── SECTION CTA PRODUCT ───────────────────────────
-// CTA final en páginas de producto — fondo gradiente azul suave
-
+// ── SECTION CTA PRODUCT ────
 .section-cta-product {
   padding: $space-xl 0;
   background: linear-gradient(135deg, #e8f0fb 0%, #ddeeff 100%);
+  border-top: 1px solid $color-border;
 
   .container {
     display: flex;
@@ -362,21 +413,17 @@
   flex: 1;
 
   h2 {
-    font-size: 1.5rem;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
     font-weight: 800;
     color: $color-text;
     margin-bottom: 10px;
     line-height: 1.2;
-
-    @media (max-width: $bp-sm) {
-      font-size: 1.2rem;
-    }
   }
 
   p {
     font-size: 0.9rem;
     color: $color-text-muted;
-    line-height: 1.6;
+    line-height: 1.7;
     max-width: 480px;
     margin: 0;
   }
@@ -392,5 +439,19 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+  }
+}
+
+// ── SECTION WHY — overrides para fondo oscuro ────
+.section-why {
+  .section-header {
+    h2 { color: #fff; }
+    p  { color: rgba(255, 255, 255, 0.65); }
+  }
+
+  .section-tag--light {
+    color: $color-primary;
+    border-color: $color-primary;
+    opacity: 0.9;
   }
 }

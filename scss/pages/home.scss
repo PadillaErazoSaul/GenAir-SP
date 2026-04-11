@@ -1,13 +1,13 @@
-// ================================================
+// ====
 // GENAIR — home.scss
 // Secciones exclusivas del index.html
-// ================================================
+// ====
 
 @use '../base/variables' as *;
 
-// ══════════════════════════════════════════════════
+// ════
 // SECCIÓN INTRO — texto + collage de imágenes
-// ══════════════════════════════════════════════════
+// ════
 
 .home-intro {
   padding: $space-xl 0;
@@ -80,9 +80,9 @@
   }
 }
 
-// ══════════════════════════════════════════════════
+// ════
 // CARRUSEL DE PRODUCTOS — flechas laterales
-// ══════════════════════════════════════════════════
+// ════
 
 .home-products {
   padding: $space-xl 0 $space-md;
@@ -105,13 +105,16 @@
 
 .hpc-track {
   display: flex;
+  flex-wrap: nowrap;
   gap: 20px;
   transition: transform 0.4s ease;
   padding: 0 $space-md;
+  will-change: transform;
 }
 
 .hpc-card {
-  flex: 0 0 calc(25% - 15px);
+  flex: 0 0 280px;
+  min-width: 0;
   background: $color-bg;
   border-radius: $radius-md;
   border: 1px solid $color-border;
@@ -126,15 +129,15 @@
   }
 
   @media (max-width: 1024px) {
-    flex: 0 0 calc(33.33% - 14px);
+    flex: 0 0 240px;
   }
 
   @media (max-width: $bp-md) {
-    flex: 0 0 calc(50% - 10px);
+    flex: 0 0 200px;
   }
 
   @media (max-width: $bp-sm) {
-    flex: 0 0 calc(80% - 10px);
+    flex: 0 0 75vw;
   }
 }
 
@@ -225,9 +228,9 @@
   }
 }
 
-// ══════════════════════════════════════════════════
+// ════
 // SECTORES ESPECIALIZADOS
-// ══════════════════════════════════════════════════
+// ════
 
 .home-sectores {
   padding: $space-xl 0;
@@ -306,9 +309,9 @@
   }
 }
 
-// ══════════════════════════════════════════════════
+// ════
 // SERVICIOS — 3 cards
-// ══════════════════════════════════════════════════
+// ════
 
 .home-servicios {
   padding: $space-xl 0;
@@ -376,72 +379,91 @@
   }
 }
 
-// ══════════════════════════════════════════════════
-// MARCAS — carrusel infinito CSS
-// ══════════════════════════════════════════════════
+// ════
+// MARCAS — grid de cards con logos
+// ════
 
 .home-marcas {
   padding: $space-xl 0;
   background: $color-bg;
 }
 
-.marcas-track-outer {
+// Carrusel infinito — conveyor belt suave sin pausas
+.marcas-carousel-outer {
   overflow: hidden;
-  margin-top: $space-lg;
-  padding: $space-sm 0;
-
-  // Máscara fade en los bordes
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 8%,
-    black 92%,
-    transparent 100%
-  );
+  padding: 12px 0 32px;
+  // Fade en los bordes para efecto de profundidad
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 
-.marcas-track {
+.marcas-carousel-track {
   display: flex;
-  gap: 32px;
+  gap: 20px;
   width: max-content;
-  animation: marcas-scroll 28s linear infinite;
+  // Animación CSS desactivada - ahora controlada por JavaScript para loop perfecto sin saltos
+  // animation: marcas-scroll 40s linear infinite;
+  // Forzar aceleración por hardware para evitar stutter
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 
   &:hover {
-    animation-play-state: paused;
+    // animation-play-state: paused; // Ya no necesario, JS maneja la pausa
   }
 }
 
 @keyframes marcas-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
-.marca-item {
+.marca-card {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.marca-logo-placeholder {
-  height: 56px;
-  min-width: 120px;
-  padding: 0 $space-md;
-  background: $color-bg-soft;
+  width: 180px;
+  height: 100px;
+  background: $color-bg;
   border: 1px solid $color-border;
   border-radius: $radius-md;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: $color-text-muted;
-  letter-spacing: 0.05em;
-  transition: background $transition, border-color $transition, color $transition;
+  padding: 16px 24px;
+  box-shadow: $shadow-sm;
+  cursor: default;
+  transition: transform $transition, box-shadow $transition;
 
   &:hover {
-    background: $color-primary-light;
-    border-color: $color-primary;
-    color: $color-primary;
+    transform: scale(1.08);
+    box-shadow: $shadow-lg;
+  }
+
+  // Imagen real del logo — cuando tengas los archivos
+  img {
+    max-width: 130px;
+    max-height: 56px;
+    width: 130px;
+    height: 56px;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: filter $transition, opacity $transition;
+    pointer-events: none;
+  }
+
+  &:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+
+  // Placeholder texto hasta tener logos reales
+  .marca-nombre {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: $color-text;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: center;
+    pointer-events: none;
   }
 }

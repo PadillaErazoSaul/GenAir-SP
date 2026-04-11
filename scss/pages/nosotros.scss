@@ -1,163 +1,13 @@
-// ================================================
+// ====
 // GENAIR — nosotros.scss
-// ================================================
+// Solo estilos EXCLUSIVOS de la página Nosotros.
+// Los estilos compartidos (page-hero, section-tag, section-header,
+// section-split, breadcrumb, etc.) viven en layout/pages.scss
+// ====
 
 @use '../base/variables' as *;
 
-// ── REUTILIZABLES EN TODAS LAS PÁGINAS ───────────
-
-.page-hero {
-  position: relative;
-  height: 340px;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-.page-hero-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  background-color: $color-bg-soft;
-}
-
-.page-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to right,
-    rgba(10, 15, 30, 0.80) 0%,
-    rgba(10, 15, 30, 0.45) 60%,
-    rgba(10, 15, 30, 0.15) 100%
-  );
-}
-
-.page-hero-content {
-  position: relative;
-  z-index: 2;
-}
-
-.page-tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: $color-accent;
-  border-left: 3px solid $color-accent;
-  padding-left: 10px;
-  margin-bottom: 14px;
-}
-
-.page-hero-content h1 {
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  font-weight: 800;
-  color: #fff;
-  line-height: 1.1;
-  margin-bottom: 12px;
-
-  span { color: $color-accent; }
-}
-
-.page-hero-content p {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.75);
-  max-width: 480px;
-}
-
-// ── ETIQUETAS Y ENCABEZADOS DE SECCIÓN ───────────
-
-.section-tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: $color-primary;
-  border-left: 3px solid $color-primary;
-  padding-left: 10px;
-  margin-bottom: 14px;
-
-  &--light {
-    color: rgba(255, 255, 255, 0.6);
-    border-color: rgba(255, 255, 255, 0.4);
-  }
-}
-
-.section-header {
-  text-align: center;
-  margin-bottom: 56px;
-
-  h2 {
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    font-weight: 800;
-    color: $color-text;
-  }
-
-  p {
-    margin-top: $space-md;
-    color: $color-text-muted;
-    max-width: 560px;
-    margin-inline: auto;
-    line-height: 1.75;
-  }
-}
-
-// Encabezado con texto blanco (secciones oscuras)
-.section-why .section-header h2 {
-  color: #fff;
-}
-
-// ── SECCIÓN ALT (fondo suave) ─────────────────────
-.section-alt {
-  background: $color-bg-soft;
-}
-
-// ── SPLIT GRID (2 columnas imagen + texto) ────────
-.section-split {
-  padding-block: $space-xxl;
-  background: $color-bg;
-}
-
-.split-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 72px;
-  align-items: center;
-
-  &--reverse {
-    .split-img  { order: 2; }
-    .split-text { order: 1; }
-  }
-}
-
-.split-img img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: $radius-lg;
-}
-
-.split-text {
-  h2 {
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
-    font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 20px;
-    color: $color-text;
-  }
-
-  p {
-    color: $color-text-muted;
-    margin-bottom: $space-md;
-    line-height: 1.75;
-
-    strong { color: $color-primary; font-weight: 700; }
-  }
-}
-
-// ── MISIÓN Y VISIÓN ───────────────────────────────
+// ── MISIÓN Y VISIÓN ────
 #mision-vision {
   padding-block: 80px;
 }
@@ -166,6 +16,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: $space-lg;
+
+  @media (max-width: $bp-md) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .mv-card {
@@ -207,7 +61,10 @@
   color: $color-primary;
   margin-bottom: 24px;
 
-  svg { width: 26px; height: 26px; }
+  svg {
+    width: 26px;
+    height: 26px;
+  }
 
   .mv-card:last-child & {
     background: rgba(0, 170, 255, 0.1);
@@ -215,7 +72,7 @@
   }
 }
 
-// ── VALORES ───────────────────────────────────────
+// ── VALORES ────
 .section-values {
   padding-block: $space-xxl;
   background: $color-bg;
@@ -225,6 +82,18 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: $space-md;
+
+  @media (max-width: $bp-lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: $bp-md) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: $bp-sm) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .value-card {
@@ -272,12 +141,16 @@
   margin: 0 auto 20px;
   transition: background $transition, color $transition;
 
-  svg { width: 26px; height: 26px; }
+  svg {
+    width: 26px;
+    height: 26px;
+  }
 }
 
-// ── POR QUÉ ELEGIRNOS ─────────────────────────────
+// ── POR QUÉ ELEGIRNOS ────
 .section-why {
-  padding-block: $space-xxl;
+  padding-top: $space-xxl;
+  padding-bottom: 120px;
   background: $color-topbar-bg;
 }
 
@@ -285,17 +158,30 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: $space-md;
+
+  @media (max-width: $bp-lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: $bp-md) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: $bp-sm) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .why-card {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.10);
   border-radius: $radius-lg;
   padding: 36px 28px;
+  background: rgba(255, 255, 255, 0.03);
   transition: border-color $transition, background $transition;
 
   &:hover {
     border-color: $color-primary;
-    background: rgba(0, 102, 204, 0.07);
+    background: rgba(8, 129, 169, 0.10);
   }
 
   h4 {
@@ -307,38 +193,18 @@
 
   p {
     font-size: 0.88rem;
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(255, 255, 255, 0.65);
     line-height: 1.7;
   }
 }
 
 .why-num {
   display: block;
-  font-size: 2.4rem;
+  font-size: 1.4rem;
   font-weight: 800;
   color: $color-primary;
-  opacity: 0.5;
+  opacity: 0.7;
   line-height: 1;
-  margin-bottom: $space-md;
-}
-
-// ── RESPONSIVE ────────────────────────────────────
-@media (max-width: $bp-lg) {
-  .values-grid { grid-template-columns: repeat(2, 1fr); }
-  .why-grid    { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: $bp-md) {
-  .page-hero         { height: 260px; }
-  .split-grid        { grid-template-columns: 1fr; gap: 40px; }
-  .split-grid--reverse .split-img,
-  .split-grid--reverse .split-text { order: unset; }
-  .mv-grid           { grid-template-columns: 1fr; }
-  .values-grid       { grid-template-columns: 1fr 1fr; }
-  .why-grid          { grid-template-columns: 1fr 1fr; }
-}
-
-@media (max-width: $bp-sm) {
-  .values-grid { grid-template-columns: 1fr; }
-  .why-grid    { grid-template-columns: 1fr; }
+  margin-bottom: $space-sm;
+  letter-spacing: 0.05em;
 }

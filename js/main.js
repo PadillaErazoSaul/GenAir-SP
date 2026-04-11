@@ -414,3 +414,106 @@
 
   window.addEventListener('resize', function () { hpcGoTo(0); });
 })();
+
+
+/* ════════════════════════════════════════════════
+   10. CARRUSEL INFINITO DE MARCAS — Loop perfecto sin saltos
+   ════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  // Obtener el track del carrusel de marcas
+  var marcasTrack = document.querySelector('.marcas-carousel-track');
+  if (!marcasTrack) return; // Si no existe, salir sin error
+
+  // Configuración del carrusel
+  var CONFIG = {
+    velocidad: 0.5,        // píxeles que se mueve por frame
+    pausaEnHover: true     // true = se pausa al pasar el mouse
+  };
+
+  // Variables de control
+  var posicion = 0;           // posición actual en píxeles (negativa, moviendo a izquierda)
+  var animacionId = null;     // ID para cancelar la animación
+  var estaPausado = false;    // estado de pausa
+  var anchoBloque = 0;        // ancho calculado de un bloque (8 tarjetas)
+
+  // Calcular ancho EXACTO del bloque (8 tarjetas + 7 gaps)
+  function calcularAnchoBloque() {
+    var cards = marcasTrack.querySelectorAll('.marca-card');
+    if (cards.length === 0) return 0;
+
+    // Ancho de una tarjeta
+    var cardWidth = cards[0].offsetWidth;
+
+    // Obtener gap del estilo computado
+    var style = getComputedStyle(marcasTrack);
+    var gap = parseInt(style.gap) || 20;
+
+    // Hay 8 tarjetas por bloque, 7 gaps entre ellas
+    var cardsPorBloque = 8;
+    anchoBloque = (cardsPorBloque * cardWidth) + ((cardsPorBloque - 1) * gap);
+
+    return anchoBloque;
+  }
+
+  // Inicializar ancho del bloque
+  calcularAnchoBloque();
+
+  // Recalcular ancho cuando se hace resize (y resetear posición para evitar desfase)
+  window.addEventListener('resize', function() {
+    calcularAnchoBloque();
+    posicion = 0; // Resetear al redimensionar para evitar problemas
+  });
+
+  // Función principal de animación
+  function animar() {
+    if (!estaPausado && anchoBloque > 0) {
+      // Mover hacia la izquierda (restar posición)
+      posicion -= CONFIG.velocidad;
+
+      // LOOP CONTINUO: cuando pasamos el ancho del bloque, reseteamos suavemente
+      // Usamos Math.abs porque posicion es negativa
+      if (Math.abs(posicion) >= anchoBloque) {
+        // FIX: Sumar el anchoBloque para mantener continuidad sin saltos
+        // Esto equivale a: posicion = posicion + anchoBloque
+        posicion += anchoBloque;
+      }
+
+      // Aplicar la transformación
+      marcasTrack.style.transform = 'translate3d(' + posicion + 'px, 0, 0)';
+    }
+
+    // Solicitar el siguiente frame
+    animacionId = requestAnimationFrame(animar);
+  }
+
+  // Pausar la animación (al hacer hover)
+  function pausar() {
+    estaPausado = true;
+  }
+
+  // Reanudar la animación (al quitar hover)
+  function reanudar() {
+    estaPausado = false;
+  }
+
+  // Eventos de hover para pausar/reanudar
+  if (CONFIG.pausaEnHover) {
+    marcasTrack.addEventListener('mouseenter', pausar);
+    marcasTrack.addEventListener('mouseleave', reanudar);
+  }
+
+  // Iniciar la animación
+  animacionId = requestAnimationFrame(animar);
+
+  // Limpiar animación si la página se oculta (ahorro de batería)
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      cancelAnimationFrame(animacionId);
+    } else {
+      animacionId = requestAnimationFrame(animar);
+    }
+  });
+
+})();
