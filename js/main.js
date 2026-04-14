@@ -415,105 +415,79 @@
   window.addEventListener('resize', function () { hpcGoTo(0); });
 })();
 
-
 /* ════════════════════════════════════════════════
-   10. CARRUSEL INFINITO DE MARCAS — Loop perfecto sin saltos
-   ════════════════════════════════════════════════ */
+   10. CARRUSEL INFINITO DE MARCAS (CORREGIDO)
+════════════════════════════════════════════════ */
 (function () {
   'use strict';
 
-  // Obtener el track del carrusel de marcas
-  var marcasTrack = document.querySelector('.marcas-carousel-track');
-  if (!marcasTrack) return; // Si no existe, salir sin error
+  var track = document.querySelector('.marcas-carousel-track');
+  if (!track) return;
 
-  // Configuración del carrusel
-  var CONFIG = {
-    velocidad: 0.5,        // píxeles que se mueve por frame
-    pausaEnHover: true     // true = se pausa al pasar el mouse
-  };
+  // 1. Agarramos solo las tarjetas originales
+  var tarjetasOriginales = Array.from(track.querySelectorAll('.marca-card:not([aria-hidden])'));
+  var anchoBloque = 0;
+  var gap = 0;
 
-  // Variables de control
-  var posicion = 0;           // posición actual en píxeles (negativa, moviendo a izquierda)
-  var animacionId = null;     // ID para cancelar la animación
-  var estaPausado = false;    // estado de pausa
-  var anchoBloque = 0;        // ancho calculado de un bloque (8 tarjetas)
+  // 2. Esta función clona los logos hasta llenar bien la pantalla
+  function asegurarClones() {
+    gap = parseFloat(getComputedStyle(track).gap) || 20;
+    anchoBloque = 0;
 
-  // Calcular ancho EXACTO del bloque (8 tarjetas + 7 gaps)
-  function calcularAnchoBloque() {
-    var cards = marcasTrack.querySelectorAll('.marca-card');
-    if (cards.length === 0) return 0;
+    // Calculamos cuánto mide el bloque original real
+    tarjetasOriginales.forEach(function(card) {
+      anchoBloque += card.offsetWidth + gap;
+    });
 
-    // Ancho de una tarjeta
-    var cardWidth = cards[0].offsetWidth;
+    // Calculamos cuánto espacio necesitamos rellenar (Bloque + Ancho de pantalla)
+    var anchoNecesario = anchoBloque + window.innerWidth;
+    var anchoActual = anchoBloque; 
 
-    // Obtener gap del estilo computado
-    var style = getComputedStyle(marcasTrack);
-    var gap = parseInt(style.gap) || 20;
+    // Limpiamos los clones anteriores por si la pantalla cambió de tamaño
+    track.querySelectorAll('.marca-card[aria-hidden="true"]').forEach(function(clone) {
+      clone.remove();
+    });
 
-    // Hay 8 tarjetas por bloque, 7 gaps entre ellas
-    var cardsPorBloque = 8;
-    anchoBloque = (cardsPorBloque * cardWidth) + ((cardsPorBloque - 1) * gap);
-
-    return anchoBloque;
+    // Inyectamos clones hasta que cubramos toda la pantalla de sobra
+    while (anchoActual < anchoNecesario) {
+      tarjetasOriginales.forEach(function(card) {
+        var clone = card.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true'); // Lo ocultamos de los lectores de pantalla
+        track.appendChild(clone);
+      });
+      anchoActual += anchoBloque;
+    }
   }
 
-  // Inicializar ancho del bloque
-  calcularAnchoBloque();
+  var posicion = 0;
+  var pausado = false;
+  var velocidad = 0.6; // Tu velocidad original, puedes subirla a 1 si lo quieres más rápido
 
-  // Recalcular ancho cuando se hace resize (y resetear posición para evitar desfase)
-  window.addEventListener('resize', function() {
-    calcularAnchoBloque();
-    posicion = 0; // Resetear al redimensionar para evitar problemas
-  });
-
-  // Función principal de animación
   function animar() {
-    if (!estaPausado && anchoBloque > 0) {
-      // Mover hacia la izquierda (restar posición)
-      posicion -= CONFIG.velocidad;
-
-      // LOOP CONTINUO: cuando pasamos el ancho del bloque, reseteamos suavemente
-      // Usamos Math.abs porque posicion es negativa
+    if (!pausado && anchoBloque > 0) {
+      posicion -= velocidad;
+      // Cuando pasamos el bloque original, reseteamos sutilmente
       if (Math.abs(posicion) >= anchoBloque) {
-        // FIX: Sumar el anchoBloque para mantener continuidad sin saltos
-        // Esto equivale a: posicion = posicion + anchoBloque
         posicion += anchoBloque;
       }
-
-      // Aplicar la transformación
-      marcasTrack.style.transform = 'translate3d(' + posicion + 'px, 0, 0)';
+      track.style.transform = 'translateX(' + posicion + 'px)';
     }
-
-    // Solicitar el siguiente frame
-    animacionId = requestAnimationFrame(animar);
+    requestAnimationFrame(animar);
   }
 
-  // Pausar la animación (al hacer hover)
-  function pausar() {
-    estaPausado = true;
-  }
+  // Iniciamos cuando cargue todo
+  window.addEventListener('load', function () {
+    asegurarClones();
+    animar();
+  });
 
-  // Reanudar la animación (al quitar hover)
-  function reanudar() {
-    estaPausado = false;
-  }
+  // Pausar al pasar el mouse por encima
+  track.addEventListener('mouseenter', function () { pausado = true; });
+  track.addEventListener('mouseleave', function () { pausado = false; });
 
-  // Eventos de hover para pausar/reanudar
-  if (CONFIG.pausaEnHover) {
-    marcasTrack.addEventListener('mouseenter', pausar);
-    marcasTrack.addEventListener('mouseleave', reanudar);
-  }
-
-  // Iniciar la animación
-  animacionId = requestAnimationFrame(animar);
-
-  // Limpiar animación si la página se oculta (ahorro de batería)
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) {
-      cancelAnimationFrame(animacionId);
-    } else {
-      animacionId = requestAnimationFrame(animar);
-    }
+  // Recalcular si el usuario voltea el celular o cambia el tamaño de la ventana
+  window.addEventListener('resize', function () {
+    asegurarClones();
   });
 
 })();

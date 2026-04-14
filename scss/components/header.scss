@@ -32,6 +32,13 @@
   flex-shrink: 0;
   display: flex;
   align-items: center;
+
+  img {
+    height: 32px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+  }
 }
 
 .logo-gen {
@@ -73,7 +80,6 @@
     transition: transform $transition, opacity $transition;
   }
 
-  // Hamburger → X
   &.is-open {
     span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     span:nth-child(2) { opacity: 0; }

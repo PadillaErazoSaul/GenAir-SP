@@ -62,9 +62,12 @@
   gap: 12px;
 }
 
+// ✅ INTEGRADO AQUÍ
 .collage-main {
-  .img-placeholder {
+  img {
+    width: 100%;
     height: 260px;
+    object-fit: cover;
     border-radius: $radius-md;
   }
 }
@@ -74,8 +77,10 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 
-  .img-placeholder {
+  img {
+    width: 100%;
     height: 110px;
+    object-fit: cover;
     border-radius: $radius-sm;
   }
 }
@@ -241,7 +246,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: $space-xl;
-  align-items: start;
+  align-items: center;
   margin-top: $space-lg;
 
   @media (max-width: $bp-md) {
@@ -250,14 +255,27 @@
 }
 
 .sectores-img {
-  .img-placeholder {
-    height: 380px;
-    border-radius: $radius-md;
+  position: relative;
+  overflow: hidden;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    @media (max-width: $bp-md) {
-      height: 240px;
-    }
+  video {
+    width: 100%;
+    max-width: 520px;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: $radius-md;
+    display: block;
+    box-shadow: $shadow-md;
   }
+}
+
+.video-genair {
+  width: 100%;
+  max-width: 520px;
 }
 
 .sectores-list {
@@ -308,7 +326,6 @@
     }
   }
 }
-
 // ════
 // SERVICIOS — 3 cards
 // ════
@@ -388,7 +405,7 @@
   background: $color-bg;
 }
 
-// Carrusel infinito — conveyor belt suave sin pausas
+// Carrusel infinito — conveyor belt
 .marcas-carousel-outer {
   overflow: hidden;
   padding: 12px 0 32px;
@@ -401,21 +418,8 @@
   display: flex;
   gap: 20px;
   width: max-content;
-  // Animación CSS desactivada - ahora controlada por JavaScript para loop perfecto sin saltos
-  // animation: marcas-scroll 40s linear infinite;
-  // Forzar aceleración por hardware para evitar stutter
   will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-
-  &:hover {
-    // animation-play-state: paused; // Ya no necesario, JS maneja la pausa
-  }
-}
-
-@keyframes marcas-scroll {
-  0%   { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-50%, 0, 0); }
+  // El carrusel ahora es controlado por JavaScript (main.js sección 10)
 }
 
 .marca-card {

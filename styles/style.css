@@ -294,6 +294,12 @@ button {
   display: flex;
   align-items: center;
 }
+.logo img {
+  height: 32px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
 
 .logo-gen {
   color: #0066cc;
@@ -2112,8 +2118,10 @@ footer li a:hover {
   gap: 12px;
 }
 
-.collage-main .img-placeholder {
+.collage-main img {
+  width: 100%;
   height: 260px;
+  object-fit: cover;
   border-radius: 8px;
 }
 
@@ -2122,8 +2130,10 @@ footer li a:hover {
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
-.collage-grid .img-placeholder {
+.collage-grid img {
+  width: 100%;
   height: 110px;
+  object-fit: cover;
   border-radius: 4px;
 }
 
@@ -2278,7 +2288,7 @@ footer li a:hover {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 64px;
-  align-items: start;
+  align-items: center;
   margin-top: 32px;
 }
 @media (max-width: 768px) {
@@ -2287,14 +2297,27 @@ footer li a:hover {
   }
 }
 
-.sectores-img .img-placeholder {
-  height: 380px;
+.sectores-img {
+  position: relative;
+  overflow: hidden;
   border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-@media (max-width: 768px) {
-  .sectores-img .img-placeholder {
-    height: 240px;
-  }
+.sectores-img video {
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.video-genair {
+  width: 100%;
+  max-width: 520px;
 }
 
 .sectores-list {
@@ -2420,17 +2443,8 @@ footer li a:hover {
   gap: 20px;
   width: max-content;
   will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
 }
-@keyframes marcas-scroll {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
+
 .marca-card {
   flex-shrink: 0;
   width: 180px;
